@@ -1,5 +1,4 @@
-import java.util.Random;
-public class empWageComputation{
+import java.util.Random; public class empWageComputation{
 	static int Wageper_Hr=20;
 	public static void checkAttendance(){
 		int isPresent=1;
@@ -24,22 +23,33 @@ public class empWageComputation{
 		int PartTimeWage=Wageper_Hr*Partday_Hr;
 		return PartTimeWage;
 	}
-	public static void checkEmployee(int r){
+	public static int checkEmployee(int r){
 		int isPartTime=2;
 		int isFullTime=1;
 		switch(r){
 		case 2:
-			System.out.println("Employee is Part Time and his wage is "+getPartTimeWage());
-			break;
+			return getPartTimeWage();
 		case 1:
-			System.out.println("Employee is Full Time and his wage is "+getDailyWage());
-			break;
+			return getDailyWage();
 		}
+		return 0;
+	}
+	public static void MonthlyWage(){
+		Random rand=new Random();
+		int count=0;
+		int MonthlyWage=0;
+		int Wage=0;
+		while(count!=20){
+			Wage=checkEmployee(rand.nextInt(3));
+			MonthlyWage+=Wage;
+			count++;
+		}
+		System.out.println("montly wage is "+MonthlyWage);
 	}
 	public static void main(String[]args){
 		System.out.println("welcome to employee wage computation");
 		empWageComputation obj=new empWageComputation();
-		obj.checkAttendance();
+		obj.MonthlyWage();
 	}
 
 }
