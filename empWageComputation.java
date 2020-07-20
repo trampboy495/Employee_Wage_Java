@@ -8,8 +8,7 @@ public class empWageComputation{
 		int r=rand.nextInt(2);
 		if(r==isPresent){
 			System.out.println("Employee is present");
-			System.out.println("Employee daily wage is "+ getDailyWage());
-			System.out.println("Employee Part Time wage is "+getPartTimeWage());
+			checkEmployee(rand.nextInt(2)+1);
 		}
 		else{
 			System.out.println("Employee is absent");
@@ -24,6 +23,18 @@ public class empWageComputation{
 		int Partday_Hr=4;
 		int PartTimeWage=Wageper_Hr*Partday_Hr;
 		return PartTimeWage;
+	}
+	public static void checkEmployee(int r){
+		int isPartTime=2;
+		int isFullTime=1;
+		switch(r){
+		case 2:
+			System.out.println("Employee is Part Time and his wage is "+getPartTimeWage());
+			break;
+		case 1:
+			System.out.println("Employee is Full Time and his wage is "+getDailyWage());
+			break;
+		}
 	}
 	public static void main(String[]args){
 		System.out.println("welcome to employee wage computation");
