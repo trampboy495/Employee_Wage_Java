@@ -2,9 +2,7 @@
 import java.util.Random;
 import java.util.Scanner;
 public class EmpWageComputation{
-
-
-
+	static Scanner in=new Scanner(System.in);
 	public static int getDailyWage(int wageper_Hr){
 		int fullday_Hr=8;
 		int dailyWage=wageper_Hr*fullday_Hr;
@@ -42,18 +40,25 @@ public class EmpWageComputation{
 		System.out.println("monthly wage of "+companyName+" is "+monthlyWage);
 
 	}
+	public static void calculateEmpWage(){
+		System.out.println("How many no of companies wages you want to calculate");
+		int n=in.nextInt();
+		for(int i=0;i<n;i++){
+			in.nextLine();
+			System.out.println("which company wage you want to calculate");
+			String companyName=in.nextLine();
+			System.out.println("Enter wage per hr");
+			int wageper_Hr=in.nextInt();
+			System.out.println("Enter total monthly days");
+			int monthlyWorkingDays=in.nextInt();
+			System.out.println("Enter total working hrs");
+			int totalWorkingHrs=in.nextInt();
+			monthlyWage(companyName,wageper_Hr,monthlyWorkingDays,totalWorkingHrs);
+		}
+	}
 	public static void main(String[]args){
-		Scanner in=new Scanner(System.in);
-		System.out.println("welcome to employee wage computation");
-		System.out.println("which company wage you want to calculate");
-		String companyName=in.nextLine();
-		System.out.println("Enter wage per hr");
-		int wageper_Hr=in.nextInt();
-		System.out.println("Enter total monthly days");
-		int monthlyWorkingDays=in.nextInt();
-		System.out.println("Enter total working hrs");
-		int totalWorkingHrs=in.nextInt();
-		monthlyWage(companyName,wageper_Hr,monthlyWorkingDays,totalWorkingHrs);
+		calculateEmpWage();
+		in.close();
 	}
 
 }
