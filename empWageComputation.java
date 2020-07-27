@@ -3,6 +3,8 @@ import java.util.Random;
 import java.util.Scanner;
 public class EmpWageComputation{
 	static Scanner in=new Scanner(System.in);
+	static CompanyEmpWage empWageArray[];
+	static int monthlyWage=0;
 	public static int getDailyWage(int wageper_Hr){
 		int fullday_Hr=8;
 		int dailyWage=wageper_Hr*fullday_Hr;
@@ -26,23 +28,27 @@ public class EmpWageComputation{
 			return 0;
 		}
 	}
-	public static void monthlyWage(String companyName,int wageper_Hr,int monthlyWorkingDays,int totalWorkingHrs){
+	public static int calculateEmpWage(int totalWorkingHrs,int totalWorkingDays,int wageper_Hr){
 		Random rand=new Random();
 		int monthlyWage=0;
 		int wage=0;
 		int count=0;
 		int workingHrs=0;
-		while(count!=monthlyWorkingDays && workingHrs!=totalWorkingHrs){
+		while(count!=totalWorkingDays && workingHrs!=totalWorkingHrs){
 			wage=checkEmployee(rand.nextInt(3),wageper_Hr);
 			monthlyWage+=wage;
 			count++;
 		}
-		System.out.println("monthly wage of "+companyName+" is "+monthlyWage);
+		return monthlyWage;
 
+	}
+	public static void add(int n,String companyName,int totalWorkingDays,int totalWorkingHrs,int empWagePerHr) {
+		empWageArray[n]=new CompanyEmpWage(companyName,totalWorkingDays, empWagePerHr, totalWorkingHrs);
 	}
 	public static void calculateEmpWage(){
 		System.out.println("How many no of companies wages you want to calculate");
 		int n=in.nextInt();
+		empWageArray=new CompanyEmpWage[n];
 		for(int i=0;i<n;i++){
 			in.nextLine();
 			System.out.println("which company wage you want to calculate");
@@ -53,7 +59,10 @@ public class EmpWageComputation{
 			int monthlyWorkingDays=in.nextInt();
 			System.out.println("Enter total working hrs");
 			int totalWorkingHrs=in.nextInt();
-			monthlyWage(companyName,wageper_Hr,monthlyWorkingDays,totalWorkingHrs);
+			add(i,companyName,monthlyWorkingDays,totalWorkingHrs,wageper_Hr);
+			monthlyWage=calculateEmpWage(empWageArray[i].getTotalWorkingHrs(),empWageArray[i].getTotalWorkingDays(),empWageArray[i].getempWagePerHr());
+			empWageArray[i].setEmpWage(monthlyWage);
+			empWageArray[i].print();
 		}
 	}
 	public static void main(String[]args){
