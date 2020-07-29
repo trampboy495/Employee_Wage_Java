@@ -3,10 +3,12 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.HashMap;
-public class EmpWageComputation{
+import org.json.simple.JSONObject;
+public class empWageComputation{
 	private static Scanner in=new Scanner(System.in);
 	private static int monthlyWage=0;
 	private static LinkedList<CompanyEmpWage> li=new LinkedList<CompanyEmpWage>();
+	private static HashMap<String,JSONObject> m=new HashMap<String,JSONObject>();
 	public static int getDailyWage(int wageper_Hr){
 		int fullday_Hr=8;
 		return calculateWage(fullday_Hr,wageper_Hr);
@@ -47,6 +49,7 @@ public class EmpWageComputation{
 	public static void add(int n,String companyName,int totalWorkingDays,int totalWorkingHrs,int empWagePerHr) {
 		li.add(new CompanyEmpWage(companyName,totalWorkingDays, empWagePerHr, totalWorkingHrs));
 	}
+	@SuppressWarnings("unchecked")
 	public static void calculateEmpWage(){
 		System.out.println("How many no of companies wages you want to calculate");
 		int n=in.nextInt();
@@ -63,11 +66,17 @@ public class EmpWageComputation{
 			add(i,companyName,monthlyWorkingDays,totalWorkingHrs,wageper_Hr);
 			monthlyWage=calculateEmpWage(li.get(i).getTotalWorkingHrs(),li.get(i).getTotalWorkingDays(),li.get(i).getempWagePerHr());
 			li.get(i).setEmpWage(monthlyWage);
-			li.get(i).print();
+			JSONObject jo=new JSONObject();
+			jo.put("TotalWorkingHrs",li.get(i).getTotalWorkingHrs() );
+			jo.put("TotalWorkingDays",li.get(i).getTotalWorkingDays());
+			jo.put("WagePerHr",li.get(i).getempWagePerHr());
+			jo.put("MonthlyWage", monthlyWage);
+			m.put(li.get(i).getCompanyName(), jo);
 		}
 	}
 	public static void main(String[]args){
 		calculateEmpWage();
+		System.out.println(m.toString());
 		in.close();
 	}
 
